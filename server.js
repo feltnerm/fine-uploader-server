@@ -19,23 +19,28 @@ var //dependencies
     fs = require("fs"),
     rimraf = require("rimraf"),
     mkdirp = require("mkdirp"),
+    jade = require('jade'),
     app = express(),
 
     // paths/constants
     fileInputName = "qqfile",
     assetsPath = __dirname + "/assets/",
     placeholdersPath = assetsPath + "placeholders/",
-    uploadedFilesPath = assetsPath + "uploadedFiles/",
+    uploadedFilesPath = __dirname + "/uploadedFiles/",
+    viewsPath = __dirname + "/views/",
     chunkDirName = "chunks",
     maxFileSize = 0; // in bytes, 0 for unlimited
 
 
+//app.engine('jade', require('jade').__express);
+//app.set('views', viewsPath);
 app.use(express.bodyParser());
-app.listen(8000);
+app.use(express.logger('dev'));
 
 // routes
 app.use(express.static(__dirname));
-app.use("/fineuploader", express.static(assetsPath));
+app.use("/uploadedFiles", express.directory(uploadedFilesPath));
+app.use("/assets", express.static(assetsPath));
 app.use("/placeholders", express.static(placeholdersPath));
 app.post("/uploads", onUpload);
 app.delete("/uploads/:uuid", onDeleteFile);
@@ -146,6 +151,8 @@ function moveFile(destinationDir, sourceFile, destinationFile, success, failure)
     mkdirp(destinationDir, function(error) {
         var sourceStream, destStream;
 
+        console.log(sourceFile + ' -> ' + destinationFile);
+
         if (error) {
             console.error("Problem creating directory " + destinationDir + ": " + error);
             failure();
@@ -233,3 +240,5 @@ function getChunkFilename(index, count) {
 
     return (zeros + index).slice(-digits);
 }
+
+app.listen(8000);

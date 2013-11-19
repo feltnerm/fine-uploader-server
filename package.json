@@ -1,0 +1,24 @@
+{
+  "name": "fine-uploader-server",
+  "version": "1.0.0",
+  "description": "Fine Uploader NodeJS example",
+  "main": "server.js",
+  "dependencies": {
+    "express": "~3.x",
+    "mkdirp": "~0.3.5",
+    "rimraf": "~2.2.2",
+    "jade": "~0.35.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/feltnerm/fine-uploader-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/feltnerm/fine-uploader-server/issues"
+  },
+  "homepage": "https://github.com/feltnerm/fine-uploader-server"
+}
